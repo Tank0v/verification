@@ -12,6 +12,7 @@ from nltk.tokenize import word_tokenize
 from collections import Counter
 import nltk
 import pymorphy2
+from sklearn import metrics
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.linear_model import LogisticRegression
 
@@ -44,23 +45,25 @@ def process_text(text):
     return processed_text, token_pos, token_dep
 
 
-def count_word_occurrences(lemmas):
-
-    # Удаляет леммы, но не удаляет части речи и уровень зависимости
-    # Удаляет леммы, но не удаляет части речи и уровень зависимости
-    # Удаляет леммы, но не удаляет части речи и уровень зависимости
-    # Удаляет леммы, но не удаляет части речи и уровень зависимости
-
+def count_word_occurrences(lemmas, token_pos, token_dep):
     # Порог для минимального количества встречаемости слова в тексте
     word_count_threshold = 0
 
     # Считаем количество вхождений каждого слова
     word_counts = Counter(lemmas)
 
-    # Удаляем слова, которые встречаются редко
-    filtered_lemmas = [word for word in lemmas if word_counts[word] >= word_count_threshold]
+    filtered_lemmas = []
+    filtered_token_pos = []
+    filtered_token_dep = []
 
-    return filtered_lemmas
+    # Удаляем слова, которые встречаются редко
+    for i in range(0, len(lemmas)):
+        if word_counts[lemmas[i]] > word_count_threshold:
+            filtered_lemmas.append(lemmas[i])
+            filtered_token_pos.append(token_pos[i])
+            filtered_token_dep.append(token_dep[i])
+
+    return filtered_lemmas, filtered_token_pos, filtered_token_dep
 
 
 def dict_text(directory):
@@ -77,12 +80,10 @@ def dict_text(directory):
 
             lemmas, token_pos, token_dep = process_text(text)
 
-            # filtered_lemmas = count_word_occurrences(lemmas)
+            filtered_lemmas, filtered_token_pos, filtered_token_dep = count_word_occurrences(lemmas, token_pos, token_dep)
 
-            filtered_lemmas = lemmas
-
-            file_token_pos += [' '.join(text for text in token_pos)]
-            file_token_dep += [' '.join(text for text in token_dep)]
+            file_token_pos += [' '.join(text for text in filtered_token_pos)]
+            file_token_dep += [' '.join(text for text in filtered_token_dep)]
 
             if author not in file_data:
                 file_data[author] = []
@@ -102,7 +103,7 @@ print(authors_index)
 test_data, test_token_pos, test_token_dep = dict_text('data/testData')
 final_test_data = [' '.join(text) for author_texts in test_data.values() for text in author_texts]
 
-tfidf = TfidfVectorizer()
+tfidf = TfidfVectorizer(max_features=5000)
 text_features = tfidf.fit_transform(final_training_data).toarray()
 training_pos_features = tfidf.transform(training_token_pos).toarray()
 training_dep_features = tfidf.transform(training_token_dep).toarray()
@@ -121,3 +122,7 @@ new_count_vectorizer = tfidf.transform(final_test_data)
 predictions = classifier.predict(test_all_features)
 
 print(predictions)
+
+true_labels = [3, 10, 0, 12, 5, 11, 7, 9, 6, 1, 4, 8, 2]
+
+print(metrics.classification_report(true_labels, predictions, zero_division=0))

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/data/testData/Исповедь язычника.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/testData/Киев-город.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/testData/Старые годы в селе Плодомасове.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/testData/Судьба человека.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/testData/Трудовой хлеб.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Бахчевник.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Белый орёл.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Вадим.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Волки и овцы.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Гроза.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Доходное место.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Запечатленный Ангел.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Записки на манжетах.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Иван Васильевич.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Кавказец.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Княгиня Лиговская.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Козьма Захарьич Минин, Сухорук.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Лазорева степь.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Леди Макбет Мценского уезда.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/На бойком месте.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/На краю света.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Нахаленок.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Овцебык.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Отец и сын.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Панорама Москвы.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Победитель.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Поднятая целина (Вторая книга).txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Поднятая целина (Первая книга).txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Похождения Чичикова.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Путешествие в Арзрум во время похода 1829 года.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Путешествие по Крыму.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Роман в письмах.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Русские общественные заметки.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Русский демократ в Польше.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Свои люди - сочтёмся.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Семейная картина.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Семейный человек.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/training/Шибалково семя.txt" charset="windows-1251" />
+  </component>
+</project>
