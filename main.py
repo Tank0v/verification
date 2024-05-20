@@ -15,6 +15,7 @@ import pymorphy2
 from sklearn import metrics
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
 
 stop_words = set(stopwords.words('russian'))
 punctuation = set(string.punctuation)
@@ -103,20 +104,22 @@ print(authors_index)
 test_data, test_token_pos, test_token_dep = dict_text('data/testData')
 final_test_data = [' '.join(text) for author_texts in test_data.values() for text in author_texts]
 
-tfidf = TfidfVectorizer(max_features=5000)
+tfidf = TfidfVectorizer(min_df=3, max_df=0.80, max_features=5000, analyzer='word')
 text_features = tfidf.fit_transform(final_training_data).toarray()
-training_pos_features = tfidf.transform(training_token_pos).toarray()
-training_dep_features = tfidf.transform(training_token_dep).toarray()
+# training_pos_features = tfidf.transform(training_token_pos).toarray()
+# training_dep_features = tfidf.transform(training_token_dep).toarray()
 
-training_all_features = np.concatenate((text_features, training_pos_features, training_dep_features), axis=1)
-classifier = LogisticRegression()
+# training_all_features = np.concatenate((text_features, training_pos_features, training_dep_features), axis=1)
+training_all_features = text_features
+classifier = MLPClassifier(max_iter=1000, alpha=0.003, hidden_layer_sizes=(50, ),  solver='adam')
 classifier.fit(training_all_features, authors)
 
 test_text_features = tfidf.transform(final_test_data).toarray()
-test_pos_features = tfidf.transform(test_token_pos).toarray()
-test_dep_features = tfidf.transform(test_token_dep).toarray()
+# test_pos_features = tfidf.transform(test_token_pos).toarray()
+# test_dep_features = tfidf.transform(test_token_dep).toarray()
 
-test_all_features = np.concatenate((test_text_features, test_pos_features, test_dep_features), axis=1)
+# test_all_features = np.concatenate((test_text_features, test_pos_features, test_dep_features), axis=1)
+test_all_features = test_text_features
 new_count_vectorizer = tfidf.transform(final_test_data)
 
 predictions = classifier.predict(test_all_features)
