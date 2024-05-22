@@ -108,13 +108,11 @@ print(true_labels)
 tfidf = TfidfVectorizer(min_df=3, max_df=0.80, max_features=5000, analyzer='word')
 text_features = tfidf.fit_transform(training_data).toarray()
 
-classifier = MLPClassifier(max_iter=1000, alpha=0.003, hidden_layer_sizes=(50, ),  solver='adam')
+classifier = MLPClassifier(max_iter=1000, alpha=0.003, hidden_layer_sizes=(50, ),  solver='lbfgs', activation='logistic')
 classifier.fit(text_features, authors)
 
 test_text_features = tfidf.transform(test_data).toarray()
 
 predictions = classifier.predict(test_text_features)
-
-print(predictions)
 
 print(metrics.classification_report(true_labels, predictions, zero_division=0))
