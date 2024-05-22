@@ -1,31 +1,20 @@
 import random
 import string
 import os
-import time
-
-import axis as axis
-import numpy as np
-import spacy
-import numpy
-
+import pymorphy2
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from collections import Counter
-import nltk
-import pymorphy2
 from sklearn import metrics
-from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neural_network import MLPClassifier
 
-stop_words = set(stopwords.words('russian'))
-punctuation = set(string.punctuation)
-morph = pymorphy2.MorphAnalyzer()
-
-nlp = spacy.load("ru_core_news_sm")
+stop_words = set(stopwords.words('russian'))  # Стоп-слова
+punctuation = set(string.punctuation)  # Знаки пунктуации
+morph = pymorphy2.MorphAnalyzer()  # Лемманизатор
 
 
+# Обработка текста
 def process_text(text):
     # Токенизация
     tokens = word_tokenize(text, language='russian')
@@ -40,6 +29,7 @@ def process_text(text):
     return lemmas
 
 
+# Удаление слов, которые встречаются меньше n раз
 def count_word_occurrences(lemmas):
     # Порог для минимального количества встречаемости слова в тексте
     word_count_threshold = 0
@@ -57,6 +47,7 @@ def count_word_occurrences(lemmas):
     return filtered_lemmas
 
 
+# Считывание данных из файлов
 def dict_text(directory):
     file_data = {}
 
@@ -79,11 +70,12 @@ def dict_text(directory):
     return file_data
 
 
+# Разделение данных на обучающие и тестовые данные
 def split_data(data):
-    train_data_split = []
-    test_data_split = []
-    true_authors_indices = []
-    authors_indices = []
+    train_data_split = []  # Обучающие данные
+    test_data_split = []  # Тестовые данные
+    authors_indices = []  # Метки авторов текстов из обучающих данных
+    true_authors_labels = []  # Метки авторов текстов из тестовых данных
 
     authors_index = {author: index for index, author in enumerate(data)}  # Индексы авторов
 
@@ -91,12 +83,12 @@ def split_data(data):
         author_index = authors_index[author]
         texts = [' '.join(text) for text in data[author]]
         test_data_split.append(texts.pop(random.randint(0, len(texts) - 1)))
-        true_authors_indices.append(author_index)
+        true_authors_labels.append(author_index)
         for text in texts:
             train_data_split.append(text)
             authors_indices.append(author_index)
 
-    return train_data_split, test_data_split, true_authors_indices, authors_indices
+    return train_data_split, test_data_split, true_authors_labels, authors_indices
 
 
 all_data = dict_text("data/training")
@@ -114,5 +106,7 @@ classifier.fit(text_features, authors)
 test_text_features = tfidf.transform(test_data).toarray()
 
 predictions = classifier.predict(test_text_features)
+
+print(predictions)
 
 print(metrics.classification_report(true_labels, predictions, zero_division=0))
